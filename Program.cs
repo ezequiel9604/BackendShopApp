@@ -14,8 +14,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // adding database connection service
+// builder.Services.AddDbContext<BackendShopAppDbContext>(opts => opts.UseSqlServer(
+//     builder.Configuration.GetConnectionString("BackendShopAppConnectionString")
+// ));
+
 builder.Services.AddDbContext<BackendShopAppDbContext>(opts => opts.UseSqlServer(
-    builder.Configuration.GetConnectionString("BackendShopAppConnectionString")
+    builder.Configuration.GetConnectionString("EFbakendShopAppConnectionString")
 ));
 
 // adding jwt token authentication service
