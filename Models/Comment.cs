@@ -8,7 +8,7 @@ public class Comment
     public int Id { get; set; }
 
     [Required]
-    [StringLength(200)]
+    [StringLength(int.MaxValue)]
     public string Text { get; set; } = string.Empty;
 
     [Required]

@@ -8,20 +8,28 @@ public class BackendShopAppDbContext : DbContext
 
     public BackendShopAppDbContext(DbContextOptions<BackendShopAppDbContext> options)
         : base(options)
-    {
-        
-    }
+    {}
 
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        builder.Entity<Client>()
+            .HasIndex(c => c.Email)
+            .IsUnique();
+
+        builder.Entity<Administrator>()
+            .HasIndex(c => c.Email)
+            .IsUnique();
+    }
 
     // database tables
 
     public DbSet<Address>? Addresses { get; set; }
-    public DbSet<Administrator>? Administrators { get; set; }
+    public DbSet<Administrator> Administrators { get; set; }
     public DbSet<Appearance>? Appearances { get; set; }
     public DbSet<Brand>? Brands { get; set; }
     public DbSet<Category>? Categories { get; set; }
     public DbSet<Chat>? Chats { get; set; }
-    public DbSet<Client>? Clients { get; set; }
+    public DbSet<Client> Clients { get; set; }
     public DbSet<Comment>? Comments { get; set; }
     public DbSet<Currancy>? Currancies { get; set; }
     public DbSet<Image>? Images { get; set; }

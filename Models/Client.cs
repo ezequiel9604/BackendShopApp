@@ -62,6 +62,6 @@ public class Client
     public int StateId { get; set; }
     public State? State { get; set; }
 
-    public int CommentId { get; set; }
+    public int? CommentId { get; set; }
     public Comment? Comment { get; set; }
 }

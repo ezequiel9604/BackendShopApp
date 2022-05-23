@@ -20,7 +20,7 @@ public class Address
     public string State { get; set; } = string.Empty;
 
     
-    [StringLength(40)]
+    [StringLength(30)]
     public string Department { get; set; } = string.Empty;
 
     [Required]

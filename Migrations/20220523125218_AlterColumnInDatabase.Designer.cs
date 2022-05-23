@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backendShopApp.DataContext;
 
@@ -11,9 +12,10 @@ using backendShopApp.DataContext;
 namespace backendShopApp.Migrations
 {
     [DbContext(typeof(BackendShopAppDbContext))]
-    partial class BackendShopAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220523125218_AlterColumnInDatabase")]
+    partial class AlterColumnInDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,7 +217,7 @@ namespace backendShopApp.Migrations
                     b.Property<int>("AppearanceId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CommentId")
+                    b.Property<int>("CommentId")
                         .HasColumnType("int");
 
                     b.Property<int>("CurrancyId")
@@ -775,7 +777,9 @@ namespace backendShopApp.Migrations
 
                     b.HasOne("backendShopApp.Models.Comment", "Comment")
                         .WithMany("Clients")
-                        .HasForeignKey("CommentId");
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("backendShopApp.Models.Currancy", "Currancy")
                         .WithMany("Clients")

@@ -15,6 +15,6 @@ public class WishList
     public SubItem? SubItem { get; set; }
 
     public int ClientId { get; set; }
-    public Client? Course { get; set; }
+    public Client? Client { get; set; }
 
 }
