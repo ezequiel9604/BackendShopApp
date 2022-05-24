@@ -1,11 +1,14 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backendShopApp.Models;
 
 public class Order
 {
     [Key]
-    public int Id { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    [StringLength(8)]
+    public string Id { get; set; } = string.Empty;
 
     [Required]
     public DateTime OrderDate { get; set; }
@@ -43,7 +46,7 @@ public class Order
     public List<Purchase>? Purchases { get; set; }
 
 
-    public int ClientId { get; set; }
+    public string ClientId { get; set; } = string.Empty;
     public Client? Client { get; set; }
 
     public int StatusId { get; set; }

@@ -24,6 +24,6 @@ public class Wallet
     public string SecurityCode { get; set; } = string.Empty;
 
 
-    public int ClientId { get; set; }
+    public string ClientId { get; set; } = string.Empty;
     public Client? Client { get; set; }
 }

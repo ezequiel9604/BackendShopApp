@@ -1,11 +1,14 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backendShopApp.Models;
 
 public class Chat 
 {
     [Key]
-    public int Id { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    [StringLength(8)]
+    public string Id { get; set; } = string.Empty;
 
     [Required]
     [StringLength(200)]
@@ -23,11 +26,11 @@ public class Chat
 
     
 
-    public int AdministratorId { get; set; }
+    public string AdministratorId { get; set; } = string.Empty;
 
     public Administrator? Administrator { get; set; }
 
-    public int ClientId { get; set; }
+    public string ClientId { get; set; } = string.Empty;
 
     public Client? Client { get; set; }
 

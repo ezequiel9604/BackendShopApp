@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace backendShopApp.Migrations
 {
-    public partial class CreatingTablesInDatabase : Migration
+    public partial class CreatingAndAddingTablesToDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,8 +13,7 @@ namespace backendShopApp.Migrations
                 name: "Administrators",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
@@ -71,9 +70,8 @@ namespace backendShopApp.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Text = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     State = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false)
                 },
@@ -171,13 +169,12 @@ namespace backendShopApp.Migrations
                 name: "Items",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: false),
                     BrandId = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    CommentId = table.Column<int>(type: "int", nullable: false)
+                    CommentId = table.Column<string>(type: "nvarchar(8)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -206,8 +203,7 @@ namespace backendShopApp.Migrations
                 name: "Clients",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
@@ -221,7 +217,7 @@ namespace backendShopApp.Migrations
                     CurrancyId = table.Column<int>(type: "int", nullable: false),
                     TypeId = table.Column<int>(type: "int", nullable: false),
                     StateId = table.Column<int>(type: "int", nullable: false),
-                    CommentId = table.Column<int>(type: "int", nullable: false)
+                    CommentId = table.Column<string>(type: "nvarchar(8)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -271,7 +267,7 @@ namespace backendShopApp.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Path = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
-                    ItemId = table.Column<int>(type: "int", nullable: false)
+                    ItemId = table.Column<string>(type: "nvarchar(8)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -298,7 +294,7 @@ namespace backendShopApp.Migrations
                     Color = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Size = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Capacity = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    ItemId = table.Column<int>(type: "int", nullable: true)
+                    ItemId = table.Column<string>(type: "nvarchar(8)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -319,9 +315,9 @@ namespace backendShopApp.Migrations
                     StreetName = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     City = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     State = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Department = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    Department = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     ZipCode = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ClientId = table.Column<string>(type: "nvarchar(8)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -338,14 +334,13 @@ namespace backendShopApp.Migrations
                 name: "Chats",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     Text = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Sender = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     IsRead = table.Column<bool>(type: "bit", nullable: false),
-                    AdministratorId = table.Column<int>(type: "int", nullable: false),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    AdministratorId = table.Column<string>(type: "nvarchar(8)", nullable: false),
+                    ClientId = table.Column<string>(type: "nvarchar(8)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -368,8 +363,7 @@ namespace backendShopApp.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeliveredDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Total = table.Column<double>(type: "float", nullable: false),
@@ -379,7 +373,7 @@ namespace backendShopApp.Migrations
                     ShipmentMethod = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
                     PaymentMethod = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
                     Type = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    ClientId = table.Column<int>(type: "int", nullable: false),
+                    ClientId = table.Column<string>(type: "nvarchar(8)", nullable: false),
                     StatusId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -406,7 +400,7 @@ namespace backendShopApp.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ClientId = table.Column<string>(type: "nvarchar(8)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -429,7 +423,7 @@ namespace backendShopApp.Migrations
                     CreditCardOwner = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     ExpirationDate = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
                     SecurityCode = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ClientId = table.Column<string>(type: "nvarchar(8)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -450,7 +444,7 @@ namespace backendShopApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Amount = table.Column<int>(type: "int", nullable: false),
                     SubItemId = table.Column<int>(type: "int", nullable: false),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ClientId = table.Column<string>(type: "nvarchar(8)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -477,7 +471,7 @@ namespace backendShopApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AddedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SubItemId = table.Column<int>(type: "int", nullable: false),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ClientId = table.Column<string>(type: "nvarchar(8)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -504,7 +498,7 @@ namespace backendShopApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Amount = table.Column<int>(type: "int", nullable: false),
                     Condition = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    OrderId = table.Column<string>(type: "nvarchar(8)", nullable: false),
                     SubItemId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -530,6 +524,12 @@ namespace backendShopApp.Migrations
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Administrators_Email",
+                table: "Administrators",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Chats_AdministratorId",
                 table: "Chats",
                 column: "AdministratorId");
@@ -553,6 +553,12 @@ namespace backendShopApp.Migrations
                 name: "IX_Clients_CurrancyId",
                 table: "Clients",
                 column: "CurrancyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clients_Email",
+                table: "Clients",
+                column: "Email",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Clients_LanguageId",

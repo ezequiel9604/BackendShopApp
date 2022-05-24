@@ -12,8 +12,8 @@ using backendShopApp.DataContext;
 namespace backendShopApp.Migrations
 {
     [DbContext(typeof(BackendShopAppDbContext))]
-    [Migration("20220523125218_AlterColumnInDatabase")]
-    partial class AlterColumnInDatabase
+    [Migration("20220524135557_AlteringTablesClientAndItemInDatabase")]
+    partial class AlteringTablesClientAndItemInDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,8 +37,9 @@ namespace backendShopApp.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<string>("Department")
                         .IsRequired()
@@ -69,11 +70,9 @@ namespace backendShopApp.Migrations
 
             modelBuilder.Entity("backendShopApp.Models.Administrator", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Id")
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -109,6 +108,9 @@ namespace backendShopApp.Migrations
                         .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("Administrators");
                 });
@@ -169,17 +171,17 @@ namespace backendShopApp.Migrations
 
             modelBuilder.Entity("backendShopApp.Models.Chat", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("AdministratorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(8)");
 
-                    b.Property<int>("AdministratorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -208,17 +210,15 @@ namespace backendShopApp.Migrations
 
             modelBuilder.Entity("backendShopApp.Models.Client", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Id")
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<int>("AppearanceId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CommentId")
-                        .HasColumnType("int");
+                    b.Property<string>("CommentId")
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<int>("CurrancyId")
                         .HasColumnType("int");
@@ -276,6 +276,9 @@ namespace backendShopApp.Migrations
 
                     b.HasIndex("CurrancyId");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.HasIndex("LanguageId");
 
                     b.HasIndex("StateId");
@@ -287,11 +290,9 @@ namespace backendShopApp.Migrations
 
             modelBuilder.Entity("backendShopApp.Models.Comment", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Id")
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -337,8 +338,9 @@ namespace backendShopApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
+                    b.Property<string>("ItemId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<string>("Path")
                         .IsRequired()
@@ -354,11 +356,9 @@ namespace backendShopApp.Migrations
 
             modelBuilder.Entity("backendShopApp.Models.Item", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Id")
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<int>("BrandId")
                         .HasColumnType("int");
@@ -366,8 +366,8 @@ namespace backendShopApp.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CommentId")
-                        .HasColumnType("int");
+                    b.Property<string>("CommentId")
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -410,14 +410,13 @@ namespace backendShopApp.Migrations
 
             modelBuilder.Entity("backendShopApp.Models.Order", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<DateTime>("DeliveredDate")
                         .HasColumnType("datetime2");
@@ -474,8 +473,9 @@ namespace backendShopApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -505,8 +505,9 @@ namespace backendShopApp.Migrations
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
+                    b.Property<string>("OrderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<int>("SubItemId")
                         .HasColumnType("int");
@@ -531,8 +532,9 @@ namespace backendShopApp.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<int>("SubItemId")
                         .HasColumnType("int");
@@ -626,8 +628,8 @@ namespace backendShopApp.Migrations
                     b.Property<double>("Descount")
                         .HasColumnType("float");
 
-                    b.Property<int?>("ItemId")
-                        .HasColumnType("int");
+                    b.Property<string>("ItemId")
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -681,8 +683,9 @@ namespace backendShopApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<string>("CreditCardNumber")
                         .IsRequired()
@@ -722,8 +725,9 @@ namespace backendShopApp.Migrations
                     b.Property<DateTime>("AddedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<int>("SubItemId")
                         .HasColumnType("int");
@@ -777,9 +781,7 @@ namespace backendShopApp.Migrations
 
                     b.HasOne("backendShopApp.Models.Comment", "Comment")
                         .WithMany("Clients")
-                        .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CommentId");
 
                     b.HasOne("backendShopApp.Models.Currancy", "Currancy")
                         .WithMany("Clients")
@@ -845,9 +847,7 @@ namespace backendShopApp.Migrations
 
                     b.HasOne("backendShopApp.Models.Comment", "Comment")
                         .WithMany("Items")
-                        .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CommentId");
 
                     b.Navigation("Brand");
 

@@ -12,6 +12,6 @@ public class Image
     public string Path { get; set; } = string.Empty;
 
 
-    public int ItemId { get; set; }
+    public string ItemId { get; set; } = string.Empty;
     public Item? Item { get; set; }
 }

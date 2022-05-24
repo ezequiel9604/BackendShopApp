@@ -1,11 +1,14 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backendShopApp.Models;
 
 public class Administrator 
 {
     [Key]
-    public int Id { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    [StringLength(8)]
+    public string Id { get; set; } = string.Empty;
 
     [Required]
     [StringLength(20)]

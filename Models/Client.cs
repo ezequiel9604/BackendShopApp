@@ -1,11 +1,14 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backendShopApp.Models;
 
 public class Client 
 {
     [Key]
-    public int Id { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    [StringLength(8)]
+    public string Id { get; set; } = string.Empty;
 
     [Required]
     [StringLength(20)]
@@ -62,6 +65,6 @@ public class Client
     public int StateId { get; set; }
     public State? State { get; set; }
 
-    public int? CommentId { get; set; }
+    public string? CommentId { get; set; }
     public Comment? Comment { get; set; }
 }

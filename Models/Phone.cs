@@ -11,7 +11,7 @@ public class Phone
     [StringLength(10)]
     public string PhoneNumber { get; set; } = string.Empty;
 
-    public int ClientId { get; set; }
+    public string ClientId { get; set; } = string.Empty;
     public Client? Client { get; set; }
 
 }

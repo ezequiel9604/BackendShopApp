@@ -3,12 +3,15 @@ namespace backendShopApp.Models;
 
 public class ClientDto 
 {
+    public string Id { get; set; } = string.Empty;
 
     public string FirstName { get; set; } = string.Empty;
     
     public string LastName { get; set; } = string.Empty;
 
     public string Email { get; set; } = string.Empty;
+
+    public string ImagePath { get; set; } = string.Empty;
 
     public string Password { get; set; } = string.Empty;
 
@@ -19,5 +22,12 @@ public class ClientDto
     public int YearOfBirth { get; set; }
 
     public string Genre { get; set; } = string.Empty;
+
+    public List<Address>? Addresses { get; set; }
+    public List<Phone>? Phones { get; set; }
+
+    public string State { get; set; } = string.Empty;
+
+    public string Type { get; set; } = string.Empty;
 
 }

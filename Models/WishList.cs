@@ -14,7 +14,7 @@ public class WishList
     public int SubItemId { get; set; }
     public SubItem? SubItem { get; set; }
 
-    public int ClientId { get; set; }
+    public string ClientId { get; set; } = string.Empty;
     public Client? Client { get; set; }
 
 }
