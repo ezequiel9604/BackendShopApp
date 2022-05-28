@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backendShopApp.DataContext;
 
@@ -11,9 +12,10 @@ using backendShopApp.DataContext;
 namespace backendShopApp.Migrations
 {
     [DbContext(typeof(BackendShopAppDbContext))]
-    partial class BackendShopAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220527221320_RemovingAddingColumnsToDatabase")]
+    partial class RemovingAddingColumnsToDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -41,13 +41,13 @@ public class Client
 
 
     // FOREIGN KEYS
-    public List<Address>? Addresses { get; set; }
-    public List<Phone>? Phones { get; set; }    
-    public List<Wallet>? Wallets { get; set; }
-    public List<ShoppingCart>? ShoppingCarts { get; set; }
-    public List<WishList>? WishLists { get; set; }
-    public List<Chat>? Chats { get; set; }
-    public List<Order>? Orders { get; set; }
+    public List<Address> Addresses { get; set; }
+    public List<Phone> Phones { get; set; }    
+    public List<Wallet> Wallets { get; set; }
+    public List<ShoppingCart> ShoppingCarts { get; set; }
+    public List<WishList> WishLists { get; set; }
+    public List<Chat> Chats { get; set; }
+    public List<Order> Orders { get; set; }
 
 
     public int AppearanceId { get; set; }

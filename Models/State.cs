@@ -12,6 +12,6 @@ public class State
     public string Name { get; set; } = string.Empty;
 
     // FOREIGN KEYS
-    public List<Client>? Clients { get; set; }
+    public List<Client> Clients { get; set; }
 
 }

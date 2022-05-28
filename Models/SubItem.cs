@@ -15,9 +15,6 @@ public class SubItem
 
     [Required]
     public int Stock { get; set; }
-
-    [Required]
-    public double Quality { get; set; }
     
     [Required]
     [StringLength(10)]
@@ -39,5 +36,9 @@ public class SubItem
     public List<ShoppingCart>? ShoppingCarts { get; set; }
     public List<WishList>? WishLists { get; set; }
     public List<Purchase>? Purchases { get; set; }
+
+
+    public string ItemId { get; set; } = string.Empty;
+    public Item? Item { get; set; }
 
 }

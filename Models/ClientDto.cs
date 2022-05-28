@@ -23,8 +23,11 @@ public class ClientDto
 
     public string Genre { get; set; } = string.Empty;
 
-    public List<Address>? Addresses { get; set; }
-    public List<Phone>? Phones { get; set; }
+    public AddressDto[]? AddressDtos { get; set; }
+    
+    public PhoneDto[]? PhoneDtos { get; set; }
+
+    public CommentDto[]? CommentDtos { get; set; }
 
     public string State { get; set; } = string.Empty;
 

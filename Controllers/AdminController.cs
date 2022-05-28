@@ -27,12 +27,9 @@ public class AdminController : ControllerBase
     [HttpPost("Signup")]
     public IActionResult Signup(AdministratorDto req)
     {
-
-        if(req.FirstName == "" || req.LastName == "" || req.Email == "" || req.Password == "" || 
-            req.PhoneNumber == "" || req.ImagePath == "")
-        {
+        if(VerifyRequestEmptyValues(req))
             return BadRequest("No empty values allowed!");
-        }
+
 
         CreatePasswordHash(req.Password, out byte[] passHash, out byte[] passSalt);
 
@@ -50,7 +47,7 @@ public class AdminController : ControllerBase
         _db.Administrators.Add(admin);
         _db.SaveChanges();
 
-        return Ok(req);
+        return Ok("admin signed up!");
     }
 
     private void CreatePasswordHash(string password, out byte[] passHash, out byte[] passSalt)
@@ -81,7 +78,18 @@ public class AdminController : ControllerBase
 
         var token = CreateToken(admin);
 
-        return Ok(new { Token= token, Admin= admin });
+        var adminDto = new AdministratorDto
+        {
+            Id= admin.Id,
+            FirstName= admin.FirstName,
+            LastName= admin.LastName,
+            Email= admin.Email,
+            Password= "dummypassword",
+            ImagePath= admin.ImagePath,
+            PhoneNumber= admin.PhoneNumber
+        };
+
+        return Ok(new { Token= token, Admin= adminDto });
     }
     
     private bool VerifyPasswordHash(string password, byte[] passHash, byte[] passSalt)
@@ -117,9 +125,8 @@ public class AdminController : ControllerBase
         return new JwtSecurityTokenHandler().WriteToken(jwt);
     }
 
-
-    [Authorize(Roles = "Client")]
-    [HttpPost("Signout")]
+    //[Authorize(Roles = "Client")]
+    [HttpDelete("Signout")]
     public IActionResult Signout(AdministratorDto req)
     {
         if(req.Email == "" || req.Password == "")
@@ -137,44 +144,13 @@ public class AdminController : ControllerBase
         _db.Administrators.Remove(admin);
         _db.SaveChanges();
 
-        return Ok(admin);
+        return Ok("admin signed out!");
     }
 
-
-    /*[Authorize(Roles = "Admin")]
-    [HttpGet("Getbyid")]
-    public ActionResult<AdministratorDto> GetById(string id)
-    {
-        var administrator = (from a in _db.Administrators.ToList()
-                    where a.Id == id
-                    select a).FirstOrDefault();
-
-        if(administrator is null)
-            return BadRequest("Admin not exist!");
-
-        var admin = new AdministratorDto
-        {
-            Id = administrator.Id,
-            FirstName= administrator.FirstName,
-            LastName = administrator.LastName,
-            Email= administrator.Email,
-            ImagePath= administrator.ImagePath,
-            PhoneNumber= administrator.PhoneNumber
-        };
-
-        return admin;
-    }*/
-
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [HttpPut("Edit")]
     public IActionResult EditOneAdmin(AdministratorDto req)
     {
-        if(req.Id == "" || req.FirstName == "" || req.LastName == "" || req.Email == "" ||
-            req.PhoneNumber == "" || req.ImagePath == "" || req.Password == "")
-        {
-            return BadRequest("No empty values allowed!");
-        }
-
         var admin = (from a in _db.Administrators.ToList()
                     where a.Id == req.Id select a).FirstOrDefault();
         
@@ -182,13 +158,13 @@ public class AdminController : ControllerBase
             return BadRequest("Admin not exist!");
         
 
-        admin.FirstName= req.FirstName;
-        admin.LastName= req.LastName;
-        admin.Email= req.Email;
-        admin.ImagePath= req.ImagePath;
-        admin.PhoneNumber= req.PhoneNumber;
+        admin.FirstName= req.FirstName==""?admin.FirstName:req.FirstName;
+        admin.LastName= req.LastName==""?admin.LastName:req.LastName;
+        admin.Email= req.Email==""?admin.Email:req.Email;
+        admin.ImagePath= req.ImagePath==""?admin.ImagePath:req.ImagePath;
+        admin.PhoneNumber= req.PhoneNumber==""?admin.PhoneNumber:req.PhoneNumber;
         
-        if(req.Password != "dummypassword" && req.Password.Length >= 6)
+        if(req.Password.Length >= 6 && req.Password.Length <= 15 && req.Password != "dummypassword")
         {
             CreatePasswordHash(req.Password, out byte[] passHash, out byte[] passSalt);
 
@@ -197,9 +173,21 @@ public class AdminController : ControllerBase
         }
 
         _db.Administrators.Update(admin);
+
         _db.SaveChanges();
 
-        return Ok(admin);
+        return Ok("admin updated!");
+    }
+
+    private bool VerifyRequestEmptyValues(AdministratorDto req)
+    {
+        bool areAnyoneEmpty = false;
+        if(req.Id == "" || req.FirstName == "" || req.LastName == "" || req.Email == "" ||
+            req.PhoneNumber == "" || req.ImagePath == "" || req.Password == "")
+        {
+            areAnyoneEmpty = true;
+        }
+        return areAnyoneEmpty;
     }
 
 }
