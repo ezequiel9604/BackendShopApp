@@ -84,7 +84,7 @@ public class ServiceClient : IServiceClient
             cdto.AddressDtos = _mapper.Map<List<AddressDto>>(addresses).ToArray();
             cdto.PhoneDtos = _mapper.Map<List<PhoneDto>>(phones).ToArray();
 
-            return new { Token=token, Client=cdto };
+            return new { Token=token, User=cdto };
 
         }
         catch (Exception)

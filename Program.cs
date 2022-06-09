@@ -61,6 +61,11 @@ builder.Services.AddScoped<IServiceItem, ServiceItem>();
 builder.Services.AddAutoMapper(typeof(Program));
 
 
+builder.Services.AddCors(c => c.AddPolicy("corsapp", builder => 
+{
+    builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
+}));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -69,6 +74,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("corsapp");
 
 app.UseHttpsRedirection();
 
