@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using backendShopApp.DataContext;
 using backendShopApp.Models;
+using backendShopApp.Services;
 using Microsoft.AspNetCore.Authorization;
 
 namespace backendShopApp.Controllers;
@@ -9,165 +9,70 @@ namespace backendShopApp.Controllers;
 [ApiController]
 public class ItemController : ControllerBase
 {
-    private readonly BackendShopAppDbContext _db;
-    private readonly IConfiguration _config;
+    private readonly IServiceItem _serviceItem;
 
-    public ItemController(BackendShopAppDbContext db, IConfiguration config)
+    public ItemController(IServiceItem serviceItem)
     {
-        _db = db;
-        _config = config;
+        _serviceItem= serviceItem;
     }
 
-    //[Authorize(Roles="Admin,Client")]
-    [HttpGet("GetAllItems")]
-    public ActionResult<List<ItemDto>> GetAllItems()
-    {
-        var allItems = new List<ItemDto>();
-
-        foreach (var item in _db.Items.ToList())
-        {   
-            // getting images for this especific item
-            var images = (from i in _db.Images.ToList()
-                        where i.ItemId == item.Id select i).ToList();
-            
-            var imageDtos = new List<ImageDto>();
-            foreach (var img in images)
-            {
-                imageDtos.Add(new ImageDto
-                {
-                    Id= img.Id,
-                    Path= img.Path,
-                });
-            }
-
-            // getting subitems for this especific item
-            var subitems = (from s in _db.SubItems.ToList()
-                            where s.ItemId == item.Id select s).ToList();
-
-            var subItemDtos = new List<SubItemDto>();
-            foreach (var sub in subitems)
-            {
-                subItemDtos.Add(new SubItemDto
-                {
-                    Id= sub.Id,
-                    Price= sub.Price,
-                    Descount= sub.Descount,
-                    Stock= sub.Stock,
-                    State= sub.State,
-                    Color= sub.Color,
-                    Capacity= sub.Capacity,
-                    Size= sub.Size,
-                });
-            }
-            
-            // filling allItems variable with all items
-            allItems.Add(new ItemDto
-            {
-                Id= item.Id,
-                Title= item.Title,
-                Description= item.Description,
-                Brand= "brand",
-                Category= "category",
-                Quality= item.Quality,
-
-                ImageDtos= imageDtos.ToArray(),
-                SubItemDtos= subItemDtos.ToArray(),
-            });
-        }
-
-        return allItems;
-
-    }
-
-    //[Authorize(Roles="Client")]
+    // DONE
+    [AllowAnonymous]
     [HttpGet("GetAll")]
     public ActionResult<List<ItemDto>> GetAll()
     {
-        var allItems = new List<ItemDto>();
+        var clientDtos = _serviceItem.GetAll();
 
-        foreach (var item in _db.Items.ToList())
-        {   
-            // getting images for this specific item
-            var images = (from i in _db.Images.ToList()
-                        where i.ItemId == item.Id select i).ToList();
-            
-            var imageDtos = new List<ImageDto>();
-            foreach (var img in images)
-            {
-                imageDtos.Add(new ImageDto
-                {
-                    Id= img.Id,
-                    Path= img.Path,
+        return clientDtos;
+    }
 
-                    ItemId= item.Id
-                });
-            }
+    // DONE
+    //[Authorize(Roles= "Admin")]
+    [HttpPost("Create")]
+    public IActionResult Create(ItemDto req)
+    {
+        var result = _serviceItem.Create(req);
 
-            // getting subitems for this specific item
-            var subitems = (from s in _db.SubItems.ToList()
-                            where s.ItemId == item.Id select s).ToList();
+        if(result == "No empty allow!")
+            return BadRequest("Error: There are empty values, No empty values allow!");
+        else if(result == "Database error!")
+            return BadRequest("Error: Request to database failed!");
+        else if(result == "No inserted!")
+            return BadRequest("Error: client not inserted!");
 
-            var subItemDtos = new List<SubItemDto>();
-            foreach (var sub in subitems)
-            {
-                subItemDtos.Add(new SubItemDto
-                {
-                    Id= sub.Id,
-                    Price= sub.Price,
-                    Descount= sub.Descount,
-                    Stock= sub.Stock,
-                    State= sub.State,
-                    Color= sub.Color,
-                    Capacity= sub.Capacity,
-                    Size= sub.Size,
+        return Ok(result);
+    }
 
-                    ItemId= item.Id
-                });
-            }
+    // DONE
+    //[Authorize(Roles= "Admin")]
+    [HttpPut("Edit")]
+    public IActionResult Update(ItemDto req)
+    {
+        var result = _serviceItem.Update(req);
 
-            // getting comments for this specific item
-            var comments = (from c in _db.Comments.ToList()
-                            where c.Id == item.CommentId select c).ToList();
+        if(result == "No exist!")
+            return BadRequest("Error: Client does not exist!");
+        else if(result == "Database error!")
+            return BadRequest("Error: Request to database failed!");
 
-            var commentDtos = new List<CommentDto>();
-            foreach (var c in comments)
-            {   
-                commentDtos.Add(new CommentDto
-                {
-                    Id= c.Id,
-                    Text= c.Text,
-                    Date= c.Date,
-                    State= c.State,
+        return Ok(result);
+    }
+    
+    // DONE
+    //[Authorize(Roles= "Admin")]
+    [HttpPost("Remove")]
+    public IActionResult Remove(ItemDto req)
+    {
+        var result = _serviceItem.Delete(req.Id);
 
-                    ItemId= item.Id
-                });
-            }
+        if(result == "No empty allow!")
+            return BadRequest("Error: There are empty values, No empty values allow!");
+        else if(result == "Database error!")
+            return BadRequest("Error: Request to database failed!");
+        else if(result == "No inserted!")
+            return BadRequest("Error: client not inserted!");
 
-            // storing 'the' brand of this specific item
-            var brand = (from c in _db.Brands.ToList()
-                            where c.Id == item.BrandId select c).FirstOrDefault();
-
-            // storing 'the' category of this specific item
-            var category = (from c in _db.Categories.ToList()
-                            where c.Id == item.CategoryId select c).FirstOrDefault();
-            
-            // filling the ItemDto list that will be giving to the front-end
-            allItems.Add(new ItemDto
-            {
-                Id= item.Id,
-                Title= item.Title,
-                Description= item.Description,
-                Brand= brand.Name,
-                Category= category.Name,
-                Quality= item.Quality,
-
-                ImageDtos= imageDtos.ToArray(),
-                SubItemDtos= subItemDtos.ToArray(),
-                CommentDtos= commentDtos.ToArray()
-            });
-        }
-
-        return allItems;
+        return Ok(result);
     }
 
 }

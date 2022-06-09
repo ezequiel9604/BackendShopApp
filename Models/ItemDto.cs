@@ -9,6 +9,8 @@ public class ItemDto
 
     public string Description { get; set; } = string.Empty;
 
+    public string State { get; set; } = string.Empty;
+
     public string Brand { get; set; } = string.Empty;
     
     public string Category { get; set; } = string.Empty;

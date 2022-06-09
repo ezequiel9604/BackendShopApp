@@ -23,14 +23,19 @@ public class ClientDto
 
     public string Genre { get; set; } = string.Empty;
 
+    public string State { get; set; } = string.Empty;
+
+    public string Type { get; set; } = string.Empty;
+
+    public string Appearance { get; set; } = string.Empty;
+
+    public string Currancy { get; set; } = string.Empty;
+    public string Language { get; set; } = string.Empty;
+
     public AddressDto[]? AddressDtos { get; set; }
     
     public PhoneDto[]? PhoneDtos { get; set; }
 
     public CommentDto[]? CommentDtos { get; set; }
-
-    public string State { get; set; } = string.Empty;
-
-    public string Type { get; set; } = string.Empty;
 
 }

@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using backendShopApp.DataContext;
+using backendShopApp.Models;
+using backendShopApp.Services;
+using backendShopApp.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +25,7 @@ builder.Services.AddDbContext<BackendShopAppDbContext>(opts => opts.UseSqlServer
     builder.Configuration.GetConnectionString("EFbakendShopAppConnectionString")
 ));
 
+
 // adding jwt token authentication service
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opts => opts.TokenValidationParameters = new TokenValidationParameters
@@ -32,6 +36,30 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         ValidateIssuer = false,
         ValidateAudience = false
     });
+
+
+builder.Services.AddScoped<IRepositoryClient, RepositoryClient>();
+builder.Services.AddScoped<IRepositoryAddress, RepositoryAddress>();
+builder.Services.AddScoped<IRepositoryBrand, RepositoryBrand>();
+builder.Services.AddScoped<IRepositoryCategory, RepositoryCategory>();
+builder.Services.AddScoped<IRepositoryPhone, RepositoryPhone>();
+builder.Services.AddScoped<IRepositoryImage, RepositoryImage>();
+builder.Services.AddScoped<IRepositoryItem, RepositoryItem>();
+builder.Services.AddScoped<IRepositoryPhone, RepositoryPhone>();
+builder.Services.AddScoped<IRepositorySubitems, RepositorySubitems>();
+builder.Services.AddScoped<IRepositoryAppearance, RepositoryAppearance>();
+builder.Services.AddScoped<IRepositoryLanguage, RepositoryLanguage>();
+builder.Services.AddScoped<IRepositoryCurrancy, RepositoryCurrancy>();
+builder.Services.AddScoped<IRepositoryType, RepositoryType>();
+builder.Services.AddScoped<IRepositoryState, RepositoryState>();
+builder.Services.AddScoped<IRepositoryComment, RepositoryComment>();
+
+builder.Services.AddScoped<IServiceClient, ServiceClient>();
+builder.Services.AddScoped<IServiceItem, ServiceItem>();
+
+
+builder.Services.AddAutoMapper(typeof(Program));
+
 
 var app = builder.Build();
 

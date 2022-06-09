@@ -21,6 +21,10 @@ public class Item
     [Required]
     public double Quality { get; set; }
 
+    [Required]
+    [StringLength(10)]
+    public string State { get; set; } = string.Empty;
+
     // FOREIGN KEYS
     public List<SubItem> SubItems { get; set; }
     public List<Image> Images { get; set; }

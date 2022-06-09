@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "3J6HaH21LJvtKXs1vCHSs04AX6csMUQE8M3D4n2pjUYvP4EGqHdRkZaIRxw37kskYKyZK1wi85CRXfgNs1QYzA==",
+  "dgSpecHash": "Z2J0OqcJA1T4H/7nTPBhDQS0CZJOC6fkcgciv1FjI2mnhD5RrLPPHgWEtgO39aNc5FVQAPTw/vgr3J1Cy5J16Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\Ezequiel\\Desktop\\Projects\\backendShopApp\\backendShopApp.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Ezequiel\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
+    "C:\\Users\\Ezequiel\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
     "C:\\Users\\Ezequiel\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Ezequiel\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.5\\microsoft.aspnetcore.authentication.jwtbearer.6.0.5.nupkg.sha512",
-    "C:\\Users\\Ezequiel\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\Ezequiel\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Ezequiel\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\Ezequiel\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "C:\\Users\\Ezequiel\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.5\\microsoft.entityframeworkcore.6.0.5.nupkg.sha512",
