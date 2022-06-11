@@ -102,7 +102,7 @@ public class ClientController : ControllerBase
     [HttpPost("Signout")]
     public IActionResult Signout(ClientDto req)
     {
-        var result = _serviceClient.Delete(req.Email, req.Password);
+        var result = _serviceClient.Delete(req.Email);
 
          if(result == "No empty allow!")
             return BadRequest("Error: There are empty values, No empty values allow!");
@@ -140,7 +140,7 @@ public class ClientController : ControllerBase
         else if(result == "Database error!")
             return BadRequest("Error: Request to database failed!");
 
-        return Ok("client updated!");
+        return Ok(result);
     }
 
 

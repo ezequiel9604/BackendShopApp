@@ -214,10 +214,10 @@ public class ServiceClient : IServiceClient
     }
 
     // DONE
-    public string Delete(string email, string password)
+    public string Delete(string email)
     {
 
-        if(email.IsNullOrEmpty() || password.IsNullOrEmpty())
+        if(email.IsNullOrEmpty())
             return "No empty allow!";
 
         try
@@ -226,10 +226,6 @@ public class ServiceClient : IServiceClient
 
             if(client is null)
                 return "No exist!";
-
-            if(!VerifyPasswordHash(password, client.PasswordHash, client.PasswordSalt))
-                return "No password!";
-
 
             int affectedRows=  _repositoryClient.Delete(client);
 
@@ -368,10 +364,13 @@ public class ServiceClient : IServiceClient
                 client.TypeId= (clientdto.Type== "normal")? 1: (clientdto.Type=="express")? 2:1;
 
             if(!clientdto.Appearance.IsNullOrEmpty())
-                client.AppearanceId= (clientdto.Appearance== "light")? 1: (clientdto.Type=="dark")? 2:1;
+                client.AppearanceId= (clientdto.Appearance== "light")? 1: (clientdto.Appearance=="dark")? 2:1;
             
             if(!clientdto.Language.IsNullOrEmpty())
                 client.LanguageId= (clientdto.Language== "english")? 1: (clientdto.Language=="spanish")? 2:1;
+            
+            if(!clientdto.Currancy.IsNullOrEmpty())
+                client.CurrancyId= (clientdto.Currancy== "usa / dollars")? 1: (clientdto.Currancy=="dom / pesos")? 2:1;
 
             _repositoryClient.Update(client);
 

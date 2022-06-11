@@ -11,7 +11,7 @@ public interface IServiceClient
 
     public string Create(ClientDto clientdto);
 
-    public string Delete(string email, string password);
+    public string Delete(string email);
 
     public string Logout(string email);
 
