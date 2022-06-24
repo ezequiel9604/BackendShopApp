@@ -12,7 +12,7 @@ public class Item
     public string Id { get; set; } = string.Empty;
 
     [Required]
-    [StringLength(200)]
+    [StringLength(int.MaxValue)]
     public string Title { get; set; } = string.Empty;
 
     [Required]

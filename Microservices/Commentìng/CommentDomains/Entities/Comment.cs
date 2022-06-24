@@ -24,10 +24,10 @@ public class Comment
     public string State { get; set; } = string.Empty;
 
 
-    public int ItemId { get; set; }
+    public string ItemId { get; set; } = string.Empty;
     public Item? Item { get; set; }
 
-    public int ClientId { get; set; }
+    public string ClientId { get; set; } = string.Empty;
     public Client? Client { get; set; }
 
 }

@@ -1,17 +1,17 @@
 
 using Microsoft.EntityFrameworkCore;
+using backendShopApp.Data;
 using backendShopApp.Microservices.Interfaces.Repositories;
 using backendShopApp.Microservices.Commenting.CommentDomains.Entities;
-using backendShopApp.Microservices.Commenting.CommentInfrastructure.Data;
 
 namespace backendShopApp.Microservices.Commenting.CommentInfrastructure.Repositories;
 
 public class RepositoryComment : IRepositoryComment
 {
 
-    private readonly CommentContext _dbContext;
+    private readonly DatabaseContext _dbContext;
 
-    public RepositoryComment(CommentContext dbContext)
+    public RepositoryComment(DatabaseContext dbContext)
     {
         _dbContext = dbContext;
     }

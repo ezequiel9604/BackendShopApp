@@ -4,18 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
+using backendShopApp.Data;
 using backendShopApp.Microservices.Clienting.ClientInfrastructure.Repositories;
 using backendShopApp.Microservices.Clienting.ClientApplication.Services;
-using backendShopApp.Microservices.Clienting.ClientInfrastructure.Data;
 
 using backendShopApp.Microservices.Iteming.ItemInfrastructure.Repositories;
 using backendShopApp.Microservices.Iteming.ItemApplication.Services;
-using backendShopApp.Microservices.Iteming.ItemInfrastructure.Data;
-
-using backendShopApp.Microservices.Commenting.CommentInfrastructure.Data;
-using backendShopApp.Microservices.Ordering.OrderInfrastructure.Data;
-using backendShopApp.Microservices.Chatting.ChatInfrastructure.Data;
-using backendShopApp.Microservices.Administrating.AdministratorInfrastructure.Data;
 
 using backendShopApp.Microservices.Interfaces.Repositories;
 using backendShopApp.Microservices.Interfaces.Services;
@@ -30,30 +24,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-var connectionString = "DefaultConnectionString";
 
-builder.Services.AddDbContext<ClientContext>(opts => opts.UseSqlServer(
-    builder.Configuration.GetConnectionString(connectionString)
-));
-
-builder.Services.AddDbContext<ItemContext>(opts => opts.UseSqlServer(
-    builder.Configuration.GetConnectionString(connectionString)
-));
-
-builder.Services.AddDbContext<CommentContext>(opts => opts.UseSqlServer(
-    builder.Configuration.GetConnectionString(connectionString)
-));
-
-builder.Services.AddDbContext<OrderContext>(opts => opts.UseSqlServer(
-    builder.Configuration.GetConnectionString(connectionString)
-));
-
-builder.Services.AddDbContext<ChatContext>(opts => opts.UseSqlServer(
-    builder.Configuration.GetConnectionString(connectionString)
-));
-
-builder.Services.AddDbContext<AdministratorContext>(opts => opts.UseSqlServer(
-    builder.Configuration.GetConnectionString(connectionString)
+builder.Services.AddDbContext<DatabaseContext>(opts => opts.UseSqlServer(
+    builder.Configuration.GetConnectionString("DefaultConnectionString")
 ));
 
 

@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace backendShopApp.Migrations.Chat
+namespace backendShopApp.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initial_migration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Administrator",
+                name: "Administrators",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
@@ -24,11 +24,11 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Administrator", x => x.Id);
+                    table.PrimaryKey("PK_Administrators", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Appearance",
+                name: "Appearances",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -37,11 +37,11 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Appearance", x => x.Id);
+                    table.PrimaryKey("PK_Appearances", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Brand",
+                name: "Brands",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -50,11 +50,11 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Brand", x => x.Id);
+                    table.PrimaryKey("PK_Brands", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Category",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -63,24 +63,11 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ClientType",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ClientType", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Currancy",
+                name: "Currancies",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -89,11 +76,11 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Currancy", x => x.Id);
+                    table.PrimaryKey("PK_Currancies", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Language",
+                name: "Languages",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -102,11 +89,11 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Language", x => x.Id);
+                    table.PrimaryKey("PK_Languages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "State",
+                name: "States",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -115,11 +102,11 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_State", x => x.Id);
+                    table.PrimaryKey("PK_States", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Status",
+                name: "Statuses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -128,15 +115,28 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Status", x => x.Id);
+                    table.PrimaryKey("PK_Statuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Item",
+                name: "Types",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Types", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Items",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: false),
                     Quality = table.Column<double>(type: "float", nullable: false),
                     State = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
@@ -145,23 +145,23 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Item", x => x.Id);
+                    table.PrimaryKey("PK_Items", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Item_Brand_BrandId",
+                        name: "FK_Items_Brands_BrandId",
                         column: x => x.BrandId,
-                        principalTable: "Brand",
+                        principalTable: "Brands",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Item_Category_CategoryId",
+                        name: "FK_Items_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Category",
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubCategory",
+                name: "SubCategories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -171,17 +171,17 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubCategory", x => x.Id);
+                    table.PrimaryKey("PK_SubCategories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SubCategory_Category_CategoryId",
+                        name: "FK_SubCategories_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Category",
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Client",
+                name: "Clients",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
@@ -201,41 +201,41 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Client", x => x.Id);
+                    table.PrimaryKey("PK_Clients", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Client_Appearance_AppearanceId",
+                        name: "FK_Clients_Appearances_AppearanceId",
                         column: x => x.AppearanceId,
-                        principalTable: "Appearance",
+                        principalTable: "Appearances",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Client_ClientType_ClientTypeId",
-                        column: x => x.ClientTypeId,
-                        principalTable: "ClientType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Client_Currancy_CurrancyId",
+                        name: "FK_Clients_Currancies_CurrancyId",
                         column: x => x.CurrancyId,
-                        principalTable: "Currancy",
+                        principalTable: "Currancies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Client_Language_LanguageId",
+                        name: "FK_Clients_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Client_State_StateId",
+                        name: "FK_Clients_States_StateId",
                         column: x => x.StateId,
-                        principalTable: "State",
+                        principalTable: "States",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Clients_Types_ClientTypeId",
+                        column: x => x.ClientTypeId,
+                        principalTable: "Types",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Image",
+                name: "Images",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -245,17 +245,17 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Image", x => x.Id);
+                    table.PrimaryKey("PK_Images", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Image_Item_ItemId",
+                        name: "FK_Images_Items_ItemId",
                         column: x => x.ItemId,
-                        principalTable: "Item",
+                        principalTable: "Items",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubItem",
+                name: "SubItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -271,17 +271,17 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubItem", x => x.Id);
+                    table.PrimaryKey("PK_SubItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SubItem_Item_ItemId",
+                        name: "FK_SubItems_Items_ItemId",
                         column: x => x.ItemId,
-                        principalTable: "Item",
+                        principalTable: "Items",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Address",
+                name: "Addresses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -295,11 +295,11 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Address", x => x.Id);
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Address_Client_ClientId",
+                        name: "FK_Addresses_Clients_ClientId",
                         column: x => x.ClientId,
-                        principalTable: "Client",
+                        principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -320,49 +320,49 @@ namespace backendShopApp.Migrations.Chat
                 {
                     table.PrimaryKey("PK_Chats", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Chats_Administrator_AdministratorId",
+                        name: "FK_Chats_Administrators_AdministratorId",
                         column: x => x.AdministratorId,
-                        principalTable: "Administrator",
+                        principalTable: "Administrators",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Chats_Client_ClientId",
+                        name: "FK_Chats_Clients_ClientId",
                         column: x => x.ClientId,
-                        principalTable: "Client",
+                        principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comment",
+                name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", maxLength: 2147483647, nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     State = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
-                    ItemId = table.Column<int>(type: "int", nullable: false),
-                    ItemId1 = table.Column<string>(type: "nvarchar(8)", nullable: true),
-                    ClientId = table.Column<int>(type: "int", nullable: false),
-                    ClientId1 = table.Column<string>(type: "nvarchar(8)", nullable: true)
+                    ItemId = table.Column<string>(type: "nvarchar(8)", nullable: false),
+                    ClientId = table.Column<string>(type: "nvarchar(8)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comment_Client_ClientId1",
-                        column: x => x.ClientId1,
-                        principalTable: "Client",
-                        principalColumn: "Id");
+                        name: "FK_Comments_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comment_Item_ItemId1",
-                        column: x => x.ItemId1,
-                        principalTable: "Item",
-                        principalColumn: "Id");
+                        name: "FK_Comments_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Order",
+                name: "Orders",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
@@ -380,23 +380,23 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Order_Client_ClientId",
+                        name: "FK_Orders_Clients_ClientId",
                         column: x => x.ClientId,
-                        principalTable: "Client",
+                        principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Order_Status_StatusId",
+                        name: "FK_Orders_Statuses_StatusId",
                         column: x => x.StatusId,
-                        principalTable: "Status",
+                        principalTable: "Statuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Phone",
+                name: "Phones",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -406,17 +406,17 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Phone", x => x.Id);
+                    table.PrimaryKey("PK_Phones", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Phone_Client_ClientId",
+                        name: "FK_Phones_Clients_ClientId",
                         column: x => x.ClientId,
-                        principalTable: "Client",
+                        principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Wallet",
+                name: "Wallets",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -429,17 +429,17 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Wallet", x => x.Id);
+                    table.PrimaryKey("PK_Wallets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Wallet_Client_ClientId",
+                        name: "FK_Wallets_Clients_ClientId",
                         column: x => x.ClientId,
-                        principalTable: "Client",
+                        principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShoppingCart",
+                name: "ShoppingCarts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -450,23 +450,23 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShoppingCart", x => x.Id);
+                    table.PrimaryKey("PK_ShoppingCarts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ShoppingCart_Client_ClientId",
+                        name: "FK_ShoppingCarts_Clients_ClientId",
                         column: x => x.ClientId,
-                        principalTable: "Client",
+                        principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ShoppingCart_SubItem_SubItemId",
+                        name: "FK_ShoppingCarts_SubItems_SubItemId",
                         column: x => x.SubItemId,
-                        principalTable: "SubItem",
+                        principalTable: "SubItems",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "WishList",
+                name: "WishLists",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -477,23 +477,23 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WishList", x => x.Id);
+                    table.PrimaryKey("PK_WishLists", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WishList_Client_ClientId",
+                        name: "FK_WishLists_Clients_ClientId",
                         column: x => x.ClientId,
-                        principalTable: "Client",
+                        principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WishList_SubItem_SubItemId",
+                        name: "FK_WishLists_SubItems_SubItemId",
                         column: x => x.SubItemId,
-                        principalTable: "SubItem",
+                        principalTable: "SubItems",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Purchase",
+                name: "Purchases",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -505,24 +505,24 @@ namespace backendShopApp.Migrations.Chat
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Purchase", x => x.Id);
+                    table.PrimaryKey("PK_Purchases", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Purchase_Order_OrderId",
+                        name: "FK_Purchases_Orders_OrderId",
                         column: x => x.OrderId,
-                        principalTable: "Order",
+                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Purchase_SubItem_SubItemId",
+                        name: "FK_Purchases_SubItems_SubItemId",
                         column: x => x.SubItemId,
-                        principalTable: "SubItem",
+                        principalTable: "SubItems",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Address_ClientId",
-                table: "Address",
+                name: "IX_Addresses_ClientId",
+                table: "Addresses",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
@@ -536,186 +536,192 @@ namespace backendShopApp.Migrations.Chat
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Client_AppearanceId",
-                table: "Client",
+                name: "IX_Clients_AppearanceId",
+                table: "Clients",
                 column: "AppearanceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Client_ClientTypeId",
-                table: "Client",
+                name: "IX_Clients_ClientTypeId",
+                table: "Clients",
                 column: "ClientTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Client_CurrancyId",
-                table: "Client",
+                name: "IX_Clients_CurrancyId",
+                table: "Clients",
                 column: "CurrancyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Client_LanguageId",
-                table: "Client",
+                name: "IX_Clients_Email",
+                table: "Clients",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clients_LanguageId",
+                table: "Clients",
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Client_StateId",
-                table: "Client",
+                name: "IX_Clients_StateId",
+                table: "Clients",
                 column: "StateId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_ClientId1",
-                table: "Comment",
-                column: "ClientId1");
+                name: "IX_Comments_ClientId",
+                table: "Comments",
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_ItemId1",
-                table: "Comment",
-                column: "ItemId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Image_ItemId",
-                table: "Image",
+                name: "IX_Comments_ItemId",
+                table: "Comments",
                 column: "ItemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Item_BrandId",
-                table: "Item",
+                name: "IX_Images_ItemId",
+                table: "Images",
+                column: "ItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Items_BrandId",
+                table: "Items",
                 column: "BrandId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Item_CategoryId",
-                table: "Item",
+                name: "IX_Items_CategoryId",
+                table: "Items",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_ClientId",
-                table: "Order",
+                name: "IX_Orders_ClientId",
+                table: "Orders",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_StatusId",
-                table: "Order",
+                name: "IX_Orders_StatusId",
+                table: "Orders",
                 column: "StatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Phone_ClientId",
-                table: "Phone",
+                name: "IX_Phones_ClientId",
+                table: "Phones",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Purchase_OrderId",
-                table: "Purchase",
+                name: "IX_Purchases_OrderId",
+                table: "Purchases",
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Purchase_SubItemId",
-                table: "Purchase",
+                name: "IX_Purchases_SubItemId",
+                table: "Purchases",
                 column: "SubItemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShoppingCart_ClientId",
-                table: "ShoppingCart",
+                name: "IX_ShoppingCarts_ClientId",
+                table: "ShoppingCarts",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShoppingCart_SubItemId",
-                table: "ShoppingCart",
+                name: "IX_ShoppingCarts_SubItemId",
+                table: "ShoppingCarts",
                 column: "SubItemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubCategory_CategoryId",
-                table: "SubCategory",
+                name: "IX_SubCategories_CategoryId",
+                table: "SubCategories",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubItem_ItemId",
-                table: "SubItem",
+                name: "IX_SubItems_ItemId",
+                table: "SubItems",
                 column: "ItemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Wallet_ClientId",
-                table: "Wallet",
+                name: "IX_Wallets_ClientId",
+                table: "Wallets",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WishList_ClientId",
-                table: "WishList",
+                name: "IX_WishLists_ClientId",
+                table: "WishLists",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WishList_SubItemId",
-                table: "WishList",
+                name: "IX_WishLists_SubItemId",
+                table: "WishLists",
                 column: "SubItemId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Address");
+                name: "Addresses");
 
             migrationBuilder.DropTable(
                 name: "Chats");
 
             migrationBuilder.DropTable(
-                name: "Comment");
+                name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "Image");
+                name: "Images");
 
             migrationBuilder.DropTable(
-                name: "Phone");
+                name: "Phones");
 
             migrationBuilder.DropTable(
-                name: "Purchase");
+                name: "Purchases");
 
             migrationBuilder.DropTable(
-                name: "ShoppingCart");
+                name: "ShoppingCarts");
 
             migrationBuilder.DropTable(
-                name: "SubCategory");
+                name: "SubCategories");
 
             migrationBuilder.DropTable(
-                name: "Wallet");
+                name: "Wallets");
 
             migrationBuilder.DropTable(
-                name: "WishList");
+                name: "WishLists");
 
             migrationBuilder.DropTable(
-                name: "Administrator");
+                name: "Administrators");
 
             migrationBuilder.DropTable(
-                name: "Order");
+                name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "SubItem");
+                name: "SubItems");
 
             migrationBuilder.DropTable(
-                name: "Client");
+                name: "Clients");
 
             migrationBuilder.DropTable(
-                name: "Status");
+                name: "Statuses");
 
             migrationBuilder.DropTable(
-                name: "Item");
+                name: "Items");
 
             migrationBuilder.DropTable(
-                name: "Appearance");
+                name: "Appearances");
 
             migrationBuilder.DropTable(
-                name: "ClientType");
+                name: "Currancies");
 
             migrationBuilder.DropTable(
-                name: "Currancy");
+                name: "Languages");
 
             migrationBuilder.DropTable(
-                name: "Language");
+                name: "States");
 
             migrationBuilder.DropTable(
-                name: "State");
+                name: "Types");
 
             migrationBuilder.DropTable(
-                name: "Brand");
+                name: "Brands");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "Categories");
         }
     }
 }

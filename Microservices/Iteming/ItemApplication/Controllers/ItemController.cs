@@ -22,9 +22,9 @@ public class ItemController : ControllerBase
     [HttpGet("GetAll")]
     public async Task<ActionResult<List<ItemDto>>> GetAll()
     {
-        var clientDtos = await _servItem.GetAll();
+        var itemDtos = await _servItem.GetAll();
 
-        return clientDtos;
+        return itemDtos;
     }
 
 

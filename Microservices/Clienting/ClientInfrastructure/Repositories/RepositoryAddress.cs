@@ -1,16 +1,16 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using backendShopApp.Data;
 using backendShopApp.Microservices.Interfaces.Repositories;
 using backendShopApp.Microservices.Clienting.ClientDomains.Entities;
-using backendShopApp.Microservices.Clienting.ClientInfrastructure.Data;
 
 namespace backendShopApp.Microservices.Clienting.ClientInfrastructure.Repositories;
 
 public class RepositoryAddress : IRepositoryAddress
 {
-    private readonly ClientContext _dbContext;
+    private readonly DatabaseContext _dbContext;
 
-    public RepositoryAddress(ClientContext dbContext)
+    public RepositoryAddress(DatabaseContext dbContext)
     {
         _dbContext = dbContext;
     }

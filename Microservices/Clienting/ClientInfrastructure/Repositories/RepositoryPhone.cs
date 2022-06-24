@@ -1,16 +1,16 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using backendShopApp.Data;
 using backendShopApp.Microservices.Interfaces.Repositories;
 using backendShopApp.Microservices.Clienting.ClientDomains.Entities;
-using backendShopApp.Microservices.Clienting.ClientInfrastructure.Data;
 
 namespace backendShopApp.Microservices.Clienting.ClientInfrastructure.Repositories;
 
 public class RepositoryPhone : IRepositoryPhone
 {
-    private readonly ClientContext _dbContext;
+    private readonly DatabaseContext _dbContext;
 
-    public RepositoryPhone(ClientContext dbContext)
+    public RepositoryPhone(DatabaseContext dbContext)
     {
         _dbContext = dbContext;
     }

@@ -1,16 +1,16 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using backendShopApp.Data;
 using backendShopApp.Microservices.Interfaces.Repositories;
 using backendShopApp.Microservices.Iteming.ItemDomains.Entities;
-using backendShopApp.Microservices.Iteming.ItemInfrastructure.Data;
 
 namespace backendShopApp.Microservices.Iteming.ItemInfrastructure.Repositories;
 
 public class RepositorySubitem : IRepositorySubitem
 {
-    private readonly ItemContext _dbContext;
+    private readonly DatabaseContext _dbContext;
 
-    public RepositorySubitem(ItemContext dbContext)
+    public RepositorySubitem(DatabaseContext dbContext)
     {
         _dbContext = dbContext;
     }

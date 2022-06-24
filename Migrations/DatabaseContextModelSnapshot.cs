@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using backendShopApp.Microservices.Chatting.ChatInfrastructure.Data;
+using backendShopApp.Data;
 
 #nullable disable
 
-namespace backendShopApp.Migrations.Chat
+namespace backendShopApp.Migrations
 {
-    [DbContext(typeof(ChatContext))]
-    partial class ChatContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(DatabaseContext))]
+    partial class DatabaseContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -63,7 +63,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasKey("Id");
 
-                    b.ToTable("Administrator");
+                    b.ToTable("Administrators");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Chatting.ChatDomain.Entities.Chat", b =>
@@ -146,7 +146,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Address");
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Clienting.ClientDomains.Entities.Appearance", b =>
@@ -164,7 +164,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasKey("Id");
 
-                    b.ToTable("Appearance");
+                    b.ToTable("Appearances");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Clienting.ClientDomains.Entities.Client", b =>
@@ -232,11 +232,14 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasIndex("CurrancyId");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.HasIndex("LanguageId");
 
                     b.HasIndex("StateId");
 
-                    b.ToTable("Client");
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Clienting.ClientDomains.Entities.ClientType", b =>
@@ -254,7 +257,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasKey("Id");
 
-                    b.ToTable("ClientType");
+                    b.ToTable("Types");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Clienting.ClientDomains.Entities.Currancy", b =>
@@ -272,7 +275,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasKey("Id");
 
-                    b.ToTable("Currancy");
+                    b.ToTable("Currancies");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Clienting.ClientDomains.Entities.Language", b =>
@@ -290,7 +293,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasKey("Id");
 
-                    b.ToTable("Language");
+                    b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Clienting.ClientDomains.Entities.Phone", b =>
@@ -314,7 +317,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Phone");
+                    b.ToTable("Phones");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Clienting.ClientDomains.Entities.ShoppingCart", b =>
@@ -341,7 +344,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasIndex("SubItemId");
 
-                    b.ToTable("ShoppingCart");
+                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Clienting.ClientDomains.Entities.State", b =>
@@ -359,7 +362,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasKey("Id");
 
-                    b.ToTable("State");
+                    b.ToTable("States");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Clienting.ClientDomains.Entities.Wallet", b =>
@@ -398,7 +401,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Wallet");
+                    b.ToTable("Wallets");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Clienting.ClientDomains.Entities.WishList", b =>
@@ -425,7 +428,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasIndex("SubItemId");
 
-                    b.ToTable("WishList");
+                    b.ToTable("WishLists");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Commenting.CommentDomains.Entities.Comment", b =>
@@ -434,19 +437,15 @@ namespace backendShopApp.Migrations.Chat
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ClientId1")
+                    b.Property<string>("ClientId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(8)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ItemId1")
+                    b.Property<string>("ItemId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(8)");
 
                     b.Property<string>("State")
@@ -461,11 +460,11 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientId1");
+                    b.HasIndex("ClientId");
 
-                    b.HasIndex("ItemId1");
+                    b.HasIndex("ItemId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Iteming.ItemDomains.Entities.Brand", b =>
@@ -483,7 +482,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brand");
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Iteming.ItemDomains.Entities.Category", b =>
@@ -501,7 +500,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Iteming.ItemDomains.Entities.Image", b =>
@@ -525,7 +524,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Image");
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Iteming.ItemDomains.Entities.Item", b =>
@@ -555,8 +554,8 @@ namespace backendShopApp.Migrations.Chat
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(2147483647)
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -564,7 +563,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Item");
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Iteming.ItemDomains.Entities.SubCategory", b =>
@@ -587,7 +586,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("SubCategory");
+                    b.ToTable("SubCategories");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Iteming.ItemDomains.Entities.SubItem", b =>
@@ -635,7 +634,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("SubItem");
+                    b.ToTable("SubItems");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Ordering.OrderDomains.Entities.Order", b =>
@@ -692,7 +691,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasIndex("StatusId");
 
-                    b.ToTable("Order");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Ordering.OrderDomains.Entities.Purchase", b =>
@@ -724,7 +723,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasIndex("SubItemId");
 
-                    b.ToTable("Purchase");
+                    b.ToTable("Purchases");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Ordering.OrderDomains.Entities.Status", b =>
@@ -742,7 +741,7 @@ namespace backendShopApp.Migrations.Chat
 
                     b.HasKey("Id");
 
-                    b.ToTable("Status");
+                    b.ToTable("Statuses");
                 });
 
             modelBuilder.Entity("backendShopApp.Microservices.Chatting.ChatDomain.Entities.Chat", b =>
@@ -882,11 +881,15 @@ namespace backendShopApp.Migrations.Chat
                 {
                     b.HasOne("backendShopApp.Microservices.Clienting.ClientDomains.Entities.Client", "Client")
                         .WithMany("Comments")
-                        .HasForeignKey("ClientId1");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("backendShopApp.Microservices.Iteming.ItemDomains.Entities.Item", "Item")
                         .WithMany("Comments")
-                        .HasForeignKey("ItemId1");
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Client");
 

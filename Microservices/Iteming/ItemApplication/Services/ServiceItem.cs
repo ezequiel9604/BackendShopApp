@@ -49,8 +49,10 @@ public class ServiceItem : IServiceItem
 
             return itemDtos;
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            System.Console.WriteLine("/******** "+e.StackTrace+" *******/");
+
             return new List<ItemDto>();
         }
 
