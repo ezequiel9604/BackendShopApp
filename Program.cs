@@ -1,11 +1,24 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
+
 using System.Text;
-using backendShopApp.DataContext;
-using backendShopApp.Models;
-using backendShopApp.Services;
-using backendShopApp.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+
+using backendShopApp.Microservices.Clienting.ClientInfrastructure.Repositories;
+using backendShopApp.Microservices.Clienting.ClientApplication.Services;
+using backendShopApp.Microservices.Clienting.ClientInfrastructure.Data;
+
+using backendShopApp.Microservices.Iteming.ItemInfrastructure.Repositories;
+using backendShopApp.Microservices.Iteming.ItemApplication.Services;
+using backendShopApp.Microservices.Iteming.ItemInfrastructure.Data;
+
+using backendShopApp.Microservices.Commenting.CommentInfrastructure.Data;
+using backendShopApp.Microservices.Ordering.OrderInfrastructure.Data;
+using backendShopApp.Microservices.Chatting.ChatInfrastructure.Data;
+using backendShopApp.Microservices.Administrating.AdministratorInfrastructure.Data;
+
+using backendShopApp.Microservices.Interfaces.Repositories;
+using backendShopApp.Microservices.Interfaces.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,13 +29,31 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// adding database connection service
-// builder.Services.AddDbContext<BackendShopAppDbContext>(opts => opts.UseSqlServer(
-//     builder.Configuration.GetConnectionString("BackendShopAppConnectionString")
-// ));
 
-builder.Services.AddDbContext<BackendShopAppDbContext>(opts => opts.UseSqlServer(
-    builder.Configuration.GetConnectionString("EFbakendShopAppConnectionString")
+var connectionString = "DefaultConnectionString";
+
+builder.Services.AddDbContext<ClientContext>(opts => opts.UseSqlServer(
+    builder.Configuration.GetConnectionString(connectionString)
+));
+
+builder.Services.AddDbContext<ItemContext>(opts => opts.UseSqlServer(
+    builder.Configuration.GetConnectionString(connectionString)
+));
+
+builder.Services.AddDbContext<CommentContext>(opts => opts.UseSqlServer(
+    builder.Configuration.GetConnectionString(connectionString)
+));
+
+builder.Services.AddDbContext<OrderContext>(opts => opts.UseSqlServer(
+    builder.Configuration.GetConnectionString(connectionString)
+));
+
+builder.Services.AddDbContext<ChatContext>(opts => opts.UseSqlServer(
+    builder.Configuration.GetConnectionString(connectionString)
+));
+
+builder.Services.AddDbContext<AdministratorContext>(opts => opts.UseSqlServer(
+    builder.Configuration.GetConnectionString(connectionString)
 ));
 
 
@@ -39,27 +70,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 
 builder.Services.AddScoped<IRepositoryClient, RepositoryClient>();
-builder.Services.AddScoped<IRepositoryAddress, RepositoryAddress>();
-builder.Services.AddScoped<IRepositoryBrand, RepositoryBrand>();
-builder.Services.AddScoped<IRepositoryCategory, RepositoryCategory>();
-builder.Services.AddScoped<IRepositoryPhone, RepositoryPhone>();
-builder.Services.AddScoped<IRepositoryImage, RepositoryImage>();
 builder.Services.AddScoped<IRepositoryItem, RepositoryItem>();
-builder.Services.AddScoped<IRepositoryPhone, RepositoryPhone>();
-builder.Services.AddScoped<IRepositorySubitems, RepositorySubitems>();
-builder.Services.AddScoped<IRepositoryAppearance, RepositoryAppearance>();
-builder.Services.AddScoped<IRepositoryLanguage, RepositoryLanguage>();
-builder.Services.AddScoped<IRepositoryCurrancy, RepositoryCurrancy>();
-builder.Services.AddScoped<IRepositoryType, RepositoryType>();
-builder.Services.AddScoped<IRepositoryState, RepositoryState>();
-builder.Services.AddScoped<IRepositoryComment, RepositoryComment>();
 
 builder.Services.AddScoped<IServiceClient, ServiceClient>();
 builder.Services.AddScoped<IServiceItem, ServiceItem>();
 
-
 builder.Services.AddAutoMapper(typeof(Program));
-
 
 builder.Services.AddCors(c => c.AddPolicy("corsapp", builder => 
 {

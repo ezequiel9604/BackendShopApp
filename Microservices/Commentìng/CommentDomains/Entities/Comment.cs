@@ -1,0 +1,33 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using backendShopApp.Microservices.Clienting.ClientDomains.Entities;
+using backendShopApp.Microservices.Iteming.ItemDomains.Entities;
+
+namespace backendShopApp.Microservices.Commenting.CommentDomains.Entities;
+
+public class Comment
+{
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    [StringLength(8)]
+    public string Id { get; set; } = string.Empty;
+
+    [Required]
+    [StringLength(int.MaxValue)]
+    public string Text { get; set; } = string.Empty;
+
+    [Required]
+    public DateTime Date { get; set; }
+
+    [Required]
+    [StringLength(8)]
+    public string State { get; set; } = string.Empty;
+
+
+    public int ItemId { get; set; }
+    public Item? Item { get; set; }
+
+    public int ClientId { get; set; }
+    public Client? Client { get; set; }
+
+}
