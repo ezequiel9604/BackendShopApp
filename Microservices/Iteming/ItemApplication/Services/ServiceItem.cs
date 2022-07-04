@@ -13,16 +13,13 @@ public class ServiceItem : IServiceItem
 {
 
     private readonly IMapper _mapper;
-    private readonly IConfiguration _config;
     private readonly IRepositoryItem _repoItem;
 
     public ServiceItem(
         IMapper mapper, 
-        IConfiguration config, 
         IRepositoryItem repoItem)
     {
         _mapper = mapper;
-        _config = config;
         _repoItem = repoItem;
     }
 
@@ -58,7 +55,6 @@ public class ServiceItem : IServiceItem
 
     }
 
-
     public async Task<string> Create(ItemDto itemdto)
     {
 
@@ -73,13 +69,13 @@ public class ServiceItem : IServiceItem
         try
         {
             // creating an id to new ITEM
-            var randomId = "ART-" + new Random().Next(1000, 9999);
+            var randomId = "ITM-" + new Random().Next(1000, 9999);
             while (true)
             {
                 if (await _repoItem.GetById(randomId) is null)
                     break;
 
-                randomId = "ART-" + new Random().Next(1000, 9999);
+                randomId = "ITM-" + new Random().Next(1000, 9999);
             }
 
             //var cat = _repositoryCategory.GetByName(itemdto.Category);

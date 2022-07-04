@@ -13,6 +13,10 @@ using backendShopApp.Microservices.Iteming.ItemApplication.Services;
 
 using backendShopApp.Microservices.Interfaces.Repositories;
 using backendShopApp.Microservices.Interfaces.Services;
+using backendShopApp.Microservices.Ordering.OrderApplication.Services;
+using backendShopApp.Microservices.Ordering.OrderInfrastructure.Repositories;
+using backendShopApp.Microservices.Commenting.CommentInfrastructure.Repositories;
+using backendShopApp.Microservices.Commenting.CommentApplications.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,9 +48,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddScoped<IRepositoryClient, RepositoryClient>();
 builder.Services.AddScoped<IRepositoryItem, RepositoryItem>();
+builder.Services.AddScoped<IRepositoryOrder, RepositoryOrder>();
+builder.Services.AddScoped<IRepositoryComment, RepositoryComment>();
 
 builder.Services.AddScoped<IServiceClient, ServiceClient>();
 builder.Services.AddScoped<IServiceItem, ServiceItem>();
+builder.Services.AddScoped<IServiceOrder, ServiceOrder>();
+builder.Services.AddScoped<IServiceComment, ServiceComment>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 

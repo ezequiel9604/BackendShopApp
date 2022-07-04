@@ -20,8 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Microservices\Administrating\AdministratorInfrastructure\" />
     <Folder Include="Microservices\Chatting\ChatDomains\Dtos\" />
-    <Folder Include="Microservices\Ordering\OrderDomains\Dtos\" />
+    <Folder Include="Microservices\Chatting\ChatInfrastructure\" />
   </ItemGroup>
 
 </Project>
